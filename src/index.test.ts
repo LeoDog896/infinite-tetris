@@ -38,12 +38,14 @@ describe('piece', () => {
 				[0, 0, 0, 0],
 				[0, 0, 0, 0]
 			]));
-			expect(array).toEqual([
-				[false, true, false, false],
-				[false, true, false, false],
-				[false, true, false, false],
-				[false, true, false, false]
-			]);
+			expect(array).toEqual(
+				asBooleanArray([
+					[0, 0, 1, 0],
+					[0, 0, 1, 0],
+					[0, 0, 1, 0],
+					[0, 0, 1, 0]
+				]),
+			);
 		});
 	});
 });

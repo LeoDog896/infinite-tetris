@@ -6,12 +6,11 @@ interface Piece {
     rotations: Rotation[];
 }
 
-export function asBooleanArray(array: (0 | 1)[][]): boolean[][] {
+export function asBooleanArray(array: (0 | 1)[][]): Rotation {
     return array.map((value) => value.map((v) => v === 1));
 }
 
-// TODO this is broken!
-export function rotate(arr: boolean[][]): boolean[][] {
+export function rotate(arr: Rotation): Rotation {
     const n = arr.length;
     const x = Math.floor(n / 2);
     const y = n - 1;
@@ -27,16 +26,28 @@ export function rotate(arr: boolean[][]): boolean[][] {
     return arr;
 }
 
-// // data referenced from https://tetris.wiki/Super_Rotation_System
-// const pieces: Piece[] = [
-//     {
-//         id: 'I',
-//         color: 'cyan',
-//         rotations: [
-//             [
-//                 asBooleanArray([0, 0, 0, 0]),
-//                 asBooleanArray([1, 1, 1, 1]),
-//                 asBooleanArray([0, 0, 0, 0]),
-//                 asBooleanArray([0, 0, 0, 0]),
-//             ],
-//             [
+/**
+ * Rotates a piece n times, returning an array of the rotations
+ */
+export function rotateTimes(arr: Rotation, n: number = 4): Rotation[] {
+    const rotations: Rotation[] = [];
+    for (let i = 0; i < n; i++) {
+        rotations.push(arr);
+        arr = rotate(arr);
+    }
+    return rotations;
+}
+
+// data referenced from https://tetris.wiki/Super_Rotation_System
+export const pieces: Piece[] = [
+    {
+        id: 'I',
+        color: 'cyan',
+        rotations: rotateTimes(asBooleanArray([
+            [0, 0, 0, 0],
+            [1, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))
+    },
+];
